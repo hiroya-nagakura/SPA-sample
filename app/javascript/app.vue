@@ -11,6 +11,7 @@ import VueRouter from 'vue-router'
 import EmployeeIndexPage from 'EmployeeIndexPage.vue'
 import EmployeeDetailPage from 'EmployeeDetailPage.vue'
 import EmployeeNewPage from 'EmployeeNewPage.vue'
+import EmployeeEditPage from 'EmployeeEditPage.vue'
 
 
 const router = new VueRouter({
@@ -20,9 +21,12 @@ const router = new VueRouter({
     { path: '/employees/:id(\\d+)',  // :id は数値のみに制限する
       name: 'EmployeeDetailPage',
       component: EmployeeDetailPage  },
-      { path: '/employees/new',
+    { path: '/employees/new',
       name: 'EmployeeNewPage',
-      component: EmployeeNewPage    }
+      component: EmployeeNewPage    },
+    { path: '/employees/:id(\\d+)/edit',
+      name: 'EmployeeEditPage',
+      component: EmployeeEditPage   }
   ]
 })
 
