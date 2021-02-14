@@ -20,7 +20,7 @@
           <td>{{ e.department }}</td>
           <td>{{ e.gender }}</td>
           <td>
-            <button @click="deleteTarget = e.id; showModal = true">Delete</button>
+            <v-btn @click="deleteTarget = e.id; showModal = true">Delete</v-btn>
           </td>
         </tr>
       </tbody>
