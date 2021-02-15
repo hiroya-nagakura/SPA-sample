@@ -5,26 +5,25 @@
         <li><font color="red">{{ e }}</font></li>
       </ul>
     </div>
-    <table>
-      <tbody>
-        <tr>
-          <th>ID</th>
-          <th>name</th>
-          <th>department</th>
-          <th>gender</th>
-          <th>actions</th>
-        </tr>
-        <tr v-for="e in employees" :key="e.id">
-          <td><router-link :to="{ name: 'EmployeeDetailPage', params: { id: e.id } }">{{ e.id }}</router-link></td>
-          <td>{{ e.name }}</td>
-          <td>{{ e.department }}</td>
-          <td>{{ e.gender }}</td>
-          <td>
-            <v-btn @click="deleteTarget = e.id; showModal = true">Delete</v-btn>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <v-data-table
+    :headers="headers"
+    :items="employees"
+    hide-default-footer
+    class="elevation-5 table"
+    >
+      <template v-slot:[`item.id`]="{ item }">
+        <router-link :to="{ name: 'EmployeeDetailPage', params: { id: item.id } }">{{ item.id }}</router-link>
+      </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-btn 
+          v-model='item.actions'
+          @click="deleteTarget = item.id; showModal = true"
+          x-small
+          color='error'
+          elevation="2"
+        >Delite</v-btn>
+      </template>
+    </v-data-table>
     <modal v-if="showModal" @cancel="showModal = false" @ok="deleteEmployee(); showModal = false;">
       <div slot="body">Are you sure?</div>
     </modal>
@@ -40,8 +39,15 @@ export default {
   components: {
     Modal
   },
-  data: function () {
+  data() {
     return {
+      headers: [
+        {text: 'ID',value: 'id'},
+        {text: 'name',value: 'name'},
+        {text: 'department',value: 'department'},
+        {text: 'gender',value: 'gender'},
+        {text: 'actions',value: 'actions'}
+      ],
       employees: [],
       showModal: false,
       deleteTarget: -1,
@@ -84,5 +90,9 @@ export default {
 p {
   font-size: 2em;
   text-align: center;
+}
+.table {
+  width: 80%;
+  margin: 5em auto;
 }
 </style>
