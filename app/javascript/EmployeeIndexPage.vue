@@ -5,25 +5,32 @@
         <li><font color="red">{{ e }}</font></li>
       </ul>
     </div>
-    <v-data-table
-    :headers="headers"
-    :items="employees"
-    hide-default-footer
-    class="elevation-5 table"
-    >
-      <template v-slot:[`item.id`]="{ item }">
-        <router-link :to="{ name: 'EmployeeDetailPage', params: { id: item.id } }">{{ item.id }}</router-link>
-      </template>
-      <template v-slot:[`item.actions`]="{ item }">
-        <v-btn 
-          v-model='item.actions'
-          @click="deleteTarget = item.id; showModal = true"
-          x-small
-          color='error'
-          elevation="2"
-        >Delite</v-btn>
-      </template>
-    </v-data-table>
+    <v-card class='card'>
+      <v-btn
+        elevation='2'
+        color='success'
+        :to="{ name:'EmployeeNewPage' }"
+      >New Employee</v-btn>
+      <v-data-table
+        :headers="headers"
+        :items="employees"
+        hide-default-footer
+        class="elevation-5 table"
+      >
+        <template v-slot:[`item.id`]="{ item }">
+          <router-link :to="{ name: 'EmployeeDetailPage', params: { id: item.id } }">{{ item.id }}</router-link>
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-btn 
+            v-model='item.actions'
+            @click="deleteTarget = item.id; showModal = true"
+            x-small
+            color='error'
+            elevation="2"
+          >Delite</v-btn>
+        </template>
+      </v-data-table>
+    </v-card>
     <modal v-if="showModal" @cancel="showModal = false" @ok="deleteEmployee(); showModal = false;">
       <div slot="body">Are you sure?</div>
     </modal>
@@ -91,7 +98,7 @@ p {
   font-size: 2em;
   text-align: center;
 }
-.table {
+.card {
   width: 80%;
   margin: 5em auto;
 }
